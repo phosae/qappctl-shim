@@ -16,7 +16,7 @@ err create deploy: exit status 1, 2022/12/01 19:23:45 unknown flag: --id
 ```
 
 ## list images
-GET /images
+GET `/images`
 ```
 curl -i localhost:9100/images
 
@@ -37,7 +37,7 @@ HTTP/1.1 200 OK
 ```
 
 ## push image
-POST /images
+POST `/images`
 ```
 curl -i -X POST -H 'content-type:application/json' localhost:9100/images -d '{"image": "k8s.gcr.io/pause:3.6"}'
 
@@ -129,7 +129,7 @@ HTTP/1.1 200 OK
 ```
 
 ## list intances
-GET `/apps/zenx/deploys/<deploy-id>/instances?region=<region>`
+GET `/apps/<app>/deploys/<deploy-id>/instances?region=<region>`
 
 ```
 curl -i localhost:9100/apps/zenx/deploys/c221130-1908-01426-lmkr/instances?region=z0
