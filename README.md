@@ -45,7 +45,7 @@ HTTP/1.1 200 OK
 ```
 注意，镜像上传后，前缀会被去除，如 `k8s.gcr.io/pause:3.6` 或者 `k8s.gcr.io/ctr/pause:3.6`，上传后会简化成 `pause:3.6`
 ## create release
-POST /apps/<app>/releases
+POST `/apps/<app>/releases`
 ```
 curl -X POST -H 'content-type:application/json' localhost:9100/apps/zenx/releases -d '{
     "image": "nginx:alpine",
@@ -61,7 +61,7 @@ HTTP/1.1 200 OK
 ```
 
 ## list releases
-GET /apps/<app>/releases
+GET `/apps/<app>/releases`
 ```
 curl -i localhost:9100/apps/zenx/releases
 
@@ -78,7 +78,7 @@ HTTP/1.1 200 OK
 ]
 ```
 ## create deploy
-POST /apps/<app>/deploys
+POST `/apps/<app>/deploys`
 ```
 curl -i -X POST -H 'content-type:application/json' localhost:9100/apps/zenx/deploys -d '{
     "release": "v221201-185439",
@@ -91,7 +91,7 @@ HTTP/1.1 200 OK
 ```
 
 ## list deploys
-GET /apps/<app>/deploys?region=<region>&release=<release>
+GET `/apps/<app>/deploys?region=<region>&release=<release>`
 
 region: must
 release: optional
@@ -113,7 +113,7 @@ HTTP/1.1 200 OK
 ```
 
 ## delelte deploy
-DELETE /apps/<app>/deploys
+DELETE `/apps/<app>/deploys`
 
 id: must
 region: must
@@ -129,7 +129,7 @@ HTTP/1.1 200 OK
 ```
 
 ## list intances
-GET /apps/zenx/deploys/<deploy-id>/instances?region=<region>
+GET `/apps/zenx/deploys/<deploy-id>/instances?region=<region>`
 
 ```
 curl -i localhost:9100/apps/zenx/deploys/c221130-1908-01426-lmkr/instances?region=z0
