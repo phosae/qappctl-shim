@@ -1,0 +1,54 @@
+name: Image Builder
+
+on:
+  label:
+    types:
+      - created
+  push:
+    branches:
+      - master
+      - main
+  
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    permissions:
+      contents: write
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+    steps:
+      - name: Checkout repo to get tools version
+        uses: actions/checkout@master
+        with: 
+          repository: phosae/qappctl-shim
+          path: ./qappctl-shim
+
+      - name: Put version to env
+        run: |
+          echo "VERSION=$(cat ./qappctl-shim/VERSION)" >> $GITHUB_ENV
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: zengxu
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build image and push to Docker Hub 
+        uses: docker/build-push-action@v3
+        with:
+          context: ./qappctl-shim
+          tags: |
+            zengxu/qappctl-shim:${{ env.VERSION }} 
+          platforms: |
+            linux/amd64,linux/arm64
+          push: ${{ github.ref == 'refs/heads/master' }}
+
+      - name: Image digest
+        run: echo ${{ steps.docker_build.outputs.digest }}

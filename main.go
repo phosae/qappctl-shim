@@ -340,6 +340,14 @@ func main() {
 	flag.StringVar(&sk, "secret-key", "", "secret key of Qiniu account")
 	flag.StringVar(&addr, "listen-addr", ":9100", "HTTP listen adress, i.e 0.0.0.0:9100")
 	flag.Parse()
+	if ak == "" || sk == "" {
+		if ak == "" {
+			ak, _ = os.LookupEnv("ACCESS_KEY")
+		}
+		if sk == "" {
+			sk, _ = os.LookupEnv("SECRET_KEY")
+		}
+	}
 	err := Login(ak, sk)
 	if err != nil {
 		log.Fatalf("login failed, please check your access-key/secret-key pair: %v", err)
