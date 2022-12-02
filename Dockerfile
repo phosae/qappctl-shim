@@ -4,7 +4,7 @@ WORKDIR /workspace
 ENV GOPROXY=https://goproxy.cn,direct
 COPY . /
 RUN go mod download
-RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -a -o qappctl-shim-$TARGETARCH main.go
+RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -a -o qappctl-shim-$TARGETARCH .
 
 FROM alpine:3.17
 RUN set -ex \
