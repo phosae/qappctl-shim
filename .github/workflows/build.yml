@@ -1,9 +1,6 @@
 name: Image Builder
 
 on:
-  label:
-    types:
-      - created
   push:
     branches:
       - master

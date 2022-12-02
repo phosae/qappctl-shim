@@ -2,7 +2,7 @@ FROM --platform=$BUILDPLATFORM golang:1.18 as builder
 ARG TARGETOS TARGETARCH
 WORKDIR /workspace
 ENV GOPROXY=https://goproxy.cn,direct
-COPY . /
+COPY . ./
 RUN go mod download
 RUN CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -a -o qappctl-shim-$TARGETARCH .
 
