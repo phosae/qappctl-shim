@@ -15,7 +15,7 @@ RUN set -ex \
     docker-cli
 ARG TARGETARCH
 WORKDIR /
-ADD /ctl/qappctl-linux-$TARGETARCH /usr/bin/
+ADD /ctl/qappctl-linux-$TARGETARCH /usr/bin/qappctl
 COPY --from=builder /workspace/qappctl-shim-$TARGETARCH /qappctl-shim
 
 ENTRYPOINT ["/qappctl-shim"]

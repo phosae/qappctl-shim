@@ -1,20 +1,18 @@
 ## 使用方式
-如果需要使用镜像上传接口，运行宿主环境必须有 Docker Engine 运行
-
 Docker
 ```bash
 docker run --rm -d -e ACCESS_KEY=<AK> -e SECRET_KEY=<SK> -p 9100:9100 \
-    -v /var/run/docker.sock:/var/run/docker.sock  zengxu/qappctl-shim:0.2.2
+-v /var/run/docker.sock:/var/run/docker.sock zengxu/qappctl-shim:0.2.2
 ```
 
 直接运行
+* 需要预先安装 qappctl
+* 如需要镜像上传接口，运行环境必须有 Docker Engine 运行
 ```
 go install github.com/phosae/qappctl-shim@0.2.2
 
 qappctl-shim --access-key <ak> --secret-key <sk>
 ```
-如果需要直接在宿主机运行，需要预先安装 qappctl
-
 
 ## error
 如果发生错误，输入参数错误一律返回 HTTP Status Code 4xx，服务端错误一律返回 5xx
