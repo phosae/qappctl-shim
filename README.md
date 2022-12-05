@@ -127,7 +127,7 @@ HTTP/1.1 200 OK
 ]
 ```
 
-## delelte deploy
+## delete deploy
 DELETE `/apps/<app>/deploys`
 
 id: must
