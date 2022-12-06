@@ -73,8 +73,12 @@ func (s *server) pushImageHandler(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	err = PushImage(img.Image)
-	if err != nil {
+	if err = TryEnsureImageInDocker(img.Image); err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	if err = PushImage(img.Image); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}

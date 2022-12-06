@@ -12,6 +12,7 @@ RUN set -ex \
     && apk upgrade \
     && apk add --no-cache \
     bash \
+    skopeo \
     docker-cli
 ARG TARGETARCH
 WORKDIR /

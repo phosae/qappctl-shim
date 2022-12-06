@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"os/exec"
 	"strconv"
 )
@@ -22,6 +23,18 @@ func Login(ak, sk string) error {
 		return err
 	}
 	return nil
+}
+
+func TryEnsureImageInDocker(tag string) error {
+	inspectCmd := exec.Command("docker", "inspect", "--type=image", tag)
+	_, err := run(inspectCmd, "docker inspect")
+	if err == nil {
+		return nil
+	}
+	pullCmd := exec.Command("docker", "pull", tag)
+	log.Printf("docker pull %s\n", tag)
+	_, err = run(pullCmd, "docker pull")
+	return err
 }
 
 func PushImage(ref string) error {
