@@ -2,14 +2,14 @@
 Docker
 ```bash
 docker run --rm -d -e ACCESS_KEY=<AK> -e SECRET_KEY=<SK> -p 9100:9100 \
--v /var/run/docker.sock:/var/run/docker.sock zengxu/qappctl-shim:0.2.2
+-v /var/run/docker.sock:/var/run/docker.sock zengxu/qappctl-shim:0.2.2-pro
 ```
 
 直接运行
 * 需要预先安装 qappctl
 * 如需要镜像上传接口，运行环境必须有 Docker Engine 运行
 ```
-go install github.com/phosae/qappctl-shim@0.2.2
+go install github.com/phosae/qappctl-shim@0.2.2-pro
 
 qappctl-shim --access-key <ak> --secret-key <sk>
 ```
