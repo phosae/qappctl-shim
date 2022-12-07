@@ -64,7 +64,6 @@ POST `/apps/<app>/releases`
 ```
 curl -X POST -H 'content-type:application/json' localhost:9100/apps/zenx/releases -d '{
     "image": "nginx:alpine",
-    "image": "pause:3.6",
     "flavor": "C1M1",
     "port": 80
 }'
