@@ -116,7 +116,10 @@ func createRelease(app string, args *CreateReleaseArgs) error {
 		return err
 	}
 
-	cfgDir := os.TempDir()
+	cfgDir, err := os.MkdirTemp("", "qapp-release-yml")
+	if err != nil {
+		return err
+	}
 	ymlfile, err := os.Create(filepath.Join(cfgDir, "dora.yaml"))
 	if err != nil {
 		return err
