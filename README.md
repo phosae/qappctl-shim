@@ -51,6 +51,7 @@ HTTP/1.1 200 OK
 ]
 ```
 
+以下示例脚本仅供参考，用户应根据实际情况调整参数
 ## push image
 POST `/images`
 ```
@@ -74,6 +75,7 @@ HTTP/1.1 200 OK
 {"name":"v221201-185439"}
 ```
 
+注意：示例仅列出了部分参数，全部参数点[这里](/types.go)
 ## list releases
 GET `/apps/<app>/releases`
 ```
@@ -107,8 +109,8 @@ HTTP/1.1 200 OK
 ## list deploys
 GET `/apps/<app>/deploys?region=<region>&release=<release>`
 
-region: must
-release: optional
+- region: must
+- release: optional
 
 ```
 curl -i localhost:9100/apps/zenx/deploys?region=z0
@@ -129,8 +131,8 @@ HTTP/1.1 200 OK
 ## delete deploy
 DELETE `/apps/<app>/deploys`
 
-id: must
-region: must
+- id: must
+- region: must
 
 ```
 curl -i -X DELETE -H 'content-type:application/json' localhost:9100/apps/zenx/deploys -d '{
