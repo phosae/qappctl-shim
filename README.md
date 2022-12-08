@@ -29,6 +29,8 @@ Content-Length: 74
 
 err create deploy: exit status 1, 2022/12/01 19:23:45 unknown flag: --id
 ```
+## Warning
+以下示例脚本仅供参考，用户应根据实际情况调整参数
 
 ## list images
 GET `/images`
@@ -51,7 +53,6 @@ HTTP/1.1 200 OK
 ]
 ```
 
-以下示例脚本仅供参考，用户应根据实际情况调整参数
 ## push image
 POST `/images`
 ```
