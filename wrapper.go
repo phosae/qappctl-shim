@@ -53,6 +53,33 @@ func ListImages() (images []Image, err error) {
 	return images, json.Unmarshal(out, &images)
 }
 
+func ListApps() (apps []App, err error) {
+	cmd := exec.Command("qappctl", "list", "-o", "json")
+	out, err := run(cmd, "list apps")
+	if err != nil {
+		return nil, err
+	}
+	return apps, json.Unmarshal(out, &apps)
+}
+
+func ListFlavors() (flavors []Flavor, err error) {
+	cmd := exec.Command("qappctl", "flavor", "-o", "json")
+	out, err := run(cmd, "list flavors")
+	if err != nil {
+		return nil, err
+	}
+	return flavors, json.Unmarshal(out, &flavors)
+}
+
+func ListRegions() (regions []Region, err error) {
+	cmd := exec.Command("qappctl", "region", "-o", "json")
+	out, err := run(cmd, "list regions")
+	if err != nil {
+		return nil, err
+	}
+	return regions, json.Unmarshal(out, &regions)
+}
+
 // qappctl release list <app> -o json
 func ListReleases(app string) (releases []Release, err error) {
 	cmd := exec.Command("qappctl", "release", "list", app, "-o", "json")

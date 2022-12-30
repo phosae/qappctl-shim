@@ -110,6 +110,33 @@ func IsImageExists(ref string) (bool, error) {
 	return false, nil
 }
 
+func (s *server) listAppsHandler(w http.ResponseWriter, req *http.Request) {
+	apps, err := ListApps()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	renderJSON(w, apps)
+}
+
+func (s *server) listFlavorsHandler(w http.ResponseWriter, req *http.Request) {
+	flavors, err := ListFlavors()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	renderJSON(w, flavors)
+}
+
+func (s *server) listRegionsHandler(w http.ResponseWriter, req *http.Request) {
+	regions, err := ListRegions()
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+	renderJSON(w, regions)
+}
+
 func createRelease(app string, args *CreateReleaseArgs) error {
 	ybytes, err := yaml.Marshal(args)
 	if err != nil {
@@ -366,6 +393,10 @@ func main() {
 
 	router.HandleFunc("/images", server.listImagesHandler).Methods("GET")
 	router.HandleFunc("/images", server.pushImageHandler).Methods("POST")
+
+	router.HandleFunc("/apps", server.listAppsHandler).Methods("GET")
+	router.HandleFunc("/flavors", server.listFlavorsHandler).Methods("GET")
+	router.HandleFunc("/regions", server.listRegionsHandler).Methods("GET")
 
 	router.HandleFunc("/apps/{app:[a-z](?:[-a-z0-9]*[a-z0-9])}/releases", server.listReleasesHandler).Methods("GET")
 	router.HandleFunc("/apps/{app:[a-z](?:[-a-z0-9]*[a-z0-9])}/releases", server.createReleaseHandler).Methods("POST")

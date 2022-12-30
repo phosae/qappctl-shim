@@ -8,6 +8,24 @@ type Image struct {
 	Ctime time.Time `json:"ctime"`
 }
 
+type App struct {
+	Name string `json:"name"`
+	Desc string `json:"desc"`
+}
+
+type Flavor struct {
+	Name    string   `json:"name"`
+	Cpu     uint     `json:"cpu"`
+	Mem     uint     `json:"memory"`
+	Gpu     string   `json:"gpu,omitempty"` // OPTIONAL
+	Regions []string `json:"regions,omitempty"`
+}
+
+type Region struct {
+	Name string `json:"name"`
+	Desc string `json:"desc,omitempty"` // OPTIONAL
+}
+
 type ConfigFile struct {
 	Filename  string `json:"filename" yaml:"filename"`
 	MountPath string `json:"mount_path" yaml:"mount_path"`

@@ -2,14 +2,14 @@
 Docker
 ```bash
 docker run --rm -d -e ACCESS_KEY=<AK> -e SECRET_KEY=<SK> -p 9100:9100 \
--v /var/run/docker.sock:/var/run/docker.sock zengxu/qappctl-shim:0.2.2-tmpyml
+-v /var/run/docker.sock:/var/run/docker.sock zengxu/qappctl-shim:221230
 ```
 
 直接运行
 * 需要预先安装 qappctl
 * 如需要镜像上传接口，运行环境必须有 Docker Engine 运行
 ```
-go install github.com/phosae/qappctl-shim@0.2.2-tmpyml
+go install github.com/phosae/qappctl-shim@221230
 
 qappctl-shim --access-key <ak> --secret-key <sk>
 ```
@@ -29,8 +29,66 @@ Content-Length: 74
 
 err create deploy: exit status 1, 2022/12/01 19:23:45 unknown flag: --id
 ```
-## Warning
+## warning
 以下示例脚本仅供参考，用户应根据实际情况调整参数
+
+## list apps
+GET `/apps`
+```
+curl -i localhost:9100/apps
+
+HTTP/1.1 200 OK
+
+[
+  {
+    "name": "zenx",
+    "desc": "zengxu's example app"
+  }
+]
+```
+
+## list flavors
+GET `/flavors`
+```
+curl -i localhost:9100/flavors
+
+HTTP/1.1 200 OK
+
+[
+  {
+    "name": "C4M4",
+    "cpu": 4,
+    "memory": 4096,
+  },
+  {
+    "name": "C8M8-P4:1",
+    "cpu": 8,
+    "memory": 8192,
+    "gpu": "P4:1"
+  } 
+]
+```
+
+## list regions
+GET `/regions`
+```
+curl -i localhost:9100/regions
+
+[
+  {
+    "name": "z0",
+    "desc": "华东"
+  },
+  {
+    "name": "z1",
+    "desc": "华北"
+  },
+  {
+    "name": "z2",
+    "desc": "华南"
+  }
+]
+```
 
 ## list images
 GET `/images`
@@ -61,6 +119,7 @@ curl -i -X POST -H 'content-type:application/json' localhost:9100/images -d '{"i
 HTTP/1.1 200 OK
 ```
 注意，镜像上传后，前缀会被去除，如 `k8s.gcr.io/pause:3.6` 或者 `k8s.gcr.io/ctr/pause:3.6`，上传后会简化成 `pause:3.6`
+
 ## create release
 POST `/apps/<app>/releases`
 ```
